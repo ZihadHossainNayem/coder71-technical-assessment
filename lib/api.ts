@@ -7,8 +7,8 @@ const cache = new Map<string, { data: unknown; timestamp: number }>();
 const CACHE_DURATION = 5 * 60 * 1000;
 
 const api = axios.create({
-    baseURL: process.env.API_BASE_URL,
-    timeout: parseInt(process.env.API_TIMEOUT || '10000'),
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
+    timeout: parseInt(process.env.NEXT_PUBLIC_API_TIMEOUT || '10000'),
 });
 
 // check to see if data is cached
