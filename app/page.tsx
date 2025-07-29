@@ -121,7 +121,7 @@ export default function Home() {
                 {!isLoading && !error && filteredProducts.length === 0 && searchQuery && (
                     <div className="text-center py-12">
                         <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 max-w-md mx-auto">
-                            <p className="text-gray-600">No products found for "{searchQuery}"</p>
+                            <p className="text-gray-600">No products found for &quot;{searchQuery}&quot;</p>
                             <button
                                 onClick={() => setSearchQuery('')}
                                 className="mt-4 px-4 py-2 bg-emerald-500 text-white rounded-md hover:bg-emerald-600 transition-colors"
