@@ -1,5 +1,29 @@
-import Image from 'next/image';
+'use client';
+import Header from '@/components/Header';
+import ProductCard from '@/components/ProductCard';
+import SearchBar from '@/components/Searchbar';
+
+const testProduct = {
+    id: 1,
+    title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
+    price: 109.95,
+    description:
+        'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
+    category: "men's clothing",
+    image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+    rating: {
+        rate: 3.9,
+        count: 120,
+    },
+};
 
 export default function Home() {
-    return <div>home</div>;
+    const handleSearch = () => {};
+    return (
+        <div>
+            <Header />
+            <SearchBar onSearch={handleSearch} />
+            <ProductCard product={testProduct} onViewDetails={() => {}} />
+        </div>
+    );
 }
