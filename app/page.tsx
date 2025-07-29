@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { Product } from '@/lib/types';
 import { fetchProducts } from '@/lib/api';
+import { useFavorites } from '@/context/FavoritesContext';
+import { useCart } from '@/context/CartContext';
 import Header from '@/components/Header';
 import SearchBar from '@/components/Searchbar';
 import ProductCard from '@/components/ProductCard';
@@ -16,6 +18,8 @@ export default function Home() {
     const [searchQuery, setSearchQuery] = useState('');
 
     const router = useRouter();
+    const { addToFavorites, removeFromFavorites, isFavorite } = useFavorites();
+    const { addToCart, removeFromCart, isInCart } = useCart();
 
     // fetch products on mount
     useEffect(() => {
@@ -56,6 +60,22 @@ export default function Home() {
     // navigate to product detail page
     const handleViewDetails = (productId: number) => {
         router.push(`/products/${productId}`);
+    };
+
+    const handleToggleFavorite = (product: Product) => {
+        if (isFavorite(product.id)) {
+            removeFromFavorites(product.id);
+        } else {
+            addToFavorites(product);
+        }
+    };
+
+    const handleToggleCart = (product: Product) => {
+        if (isInCart(product.id)) {
+            removeFromCart(product.id);
+        } else {
+            addToCart(product);
+        }
     };
 
     return (
@@ -116,7 +136,15 @@ export default function Home() {
                 {!isLoading && !error && filteredProducts.length > 0 && (
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                         {filteredProducts.map((product) => (
-                            <ProductCard key={product.id} product={product} onViewDetails={handleViewDetails} />
+                            <ProductCard
+                                key={product.id}
+                                product={product}
+                                onViewDetails={handleViewDetails}
+                                onToggleFavorite={handleToggleFavorite}
+                                isFavorite={isFavorite(product.id)}
+                                onToggleCart={handleToggleCart}
+                                isInCart={isInCart(product.id)}
+                            />
                         ))}
                     </div>
                 )}

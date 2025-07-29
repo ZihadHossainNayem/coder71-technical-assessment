@@ -11,9 +11,18 @@ interface ProductCardProps {
     onViewDetails: (id: number) => void;
     onToggleFavorite?: (product: Product) => void;
     isFavorite?: boolean;
+    onToggleCart?: (product: Product) => void;
+    isInCart?: boolean;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails, onToggleFavorite, isFavorite = false }) => {
+const ProductCard: React.FC<ProductCardProps> = ({
+    product,
+    onViewDetails,
+    onToggleFavorite,
+    isFavorite = false,
+    onToggleCart,
+    isInCart = false,
+}) => {
     return (
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow h-full flex flex-col">
             {/* image */}
@@ -58,13 +67,26 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails, onTog
                 </div>
 
                 {/* buttons */}
-                <div className="mt-auto">
+                <div className="space-y-2 mt-auto">
                     <button
                         onClick={() => onViewDetails(product.id)}
                         className="w-full bg-emerald-500 text-white py-2 px-4 rounded-md text-sm font-medium hover:bg-emerald-600 transition-colors"
                     >
                         View Details
                     </button>
+
+                    {onToggleCart && (
+                        <button
+                            onClick={() => onToggleCart(product)}
+                            className={`w-full py-2 px-4 rounded-md text-sm font-medium transition-colors ${
+                                isInCart
+                                    ? 'bg-red-500 text-white hover:bg-red-600'
+                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                            }`}
+                        >
+                            {isInCart ? 'Remove from Cart' : 'Add to Cart'}
+                        </button>
+                    )}
                 </div>
             </div>
         </div>

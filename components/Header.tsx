@@ -2,10 +2,14 @@
 
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
-import { FiUser, FiLogOut } from 'react-icons/fi';
+import { useCart } from '@/context/CartContext';
+import { useFavorites } from '@/context/FavoritesContext';
+import { FiUser, FiLogOut, FiShoppingCart, FiHeart } from 'react-icons/fi';
 
 const Header: React.FC = () => {
     const { user, logout } = useAuth();
+    const { cart } = useCart();
+    const { favorites } = useFavorites();
 
     return (
         <header className="bg-white border-b border-gray-200 sticky top-0 z-50">
@@ -19,8 +23,32 @@ const Header: React.FC = () => {
                     {/* nav section*/}
                     <div className="flex items-center space-x-4">
                         {user ? (
-                            // show username and logout if logged in
+                            // show username, cart, favorite and logout if logged in
                             <div className="flex items-center space-x-4">
+                                <Link
+                                    href="/favorites"
+                                    className="flex items-center space-x-1 px-3 py-2 text-sm text-gray-600 hover:text-emerald-500 transition-colors relative"
+                                >
+                                    <FiHeart className="w-4 h-4" />
+                                    <span>Favorites</span>
+                                    {favorites.length > 0 && (
+                                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                            {favorites.length}
+                                        </span>
+                                    )}
+                                </Link>
+                                <Link
+                                    href="/cart"
+                                    className="flex items-center space-x-1 px-3 py-2 text-sm text-gray-600 hover:text-emerald-500 transition-colors relative"
+                                >
+                                    <FiShoppingCart className="w-4 h-4" />
+                                    <span>Cart</span>
+                                    {cart.length > 0 && (
+                                        <span className="absolute -top-1 -right-1 bg-emerald-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                                            {cart.length}
+                                        </span>
+                                    )}
+                                </Link>
                                 <div className="flex items-center space-x-2 text-sm text-gray-600">
                                     <FiUser className="w-4 h-4" />
                                     <span>{user.username}</span>
