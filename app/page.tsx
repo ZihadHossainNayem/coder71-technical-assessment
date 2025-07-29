@@ -76,7 +76,7 @@ export default function Home() {
                 {isLoading && (
                     <div className="flex items-center justify-center py-12">
                         <div className="text-center">
-                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-500 mx-auto"></div>
+                            <div className="animate-spin rounded-full h-12 w-12 border-2 border-t-transparent border-emerald-500 mx-auto"></div>
                             <p className="mt-4 text-gray-600">Loading products...</p>
                         </div>
                     </div>
